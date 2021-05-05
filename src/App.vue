@@ -6,7 +6,9 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-icon :icon="helpCircle"></ion-icon>
+      <ion-button @click="showInfo">
+        <ion-icon :icon="helpCircle"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
     <ion-title class="ion-text-center ion-text-capitalize">
@@ -55,19 +57,6 @@
       </ion-card-content>
     </ion-card>
   </div>
-
-  <ion-footer>
-    <ion-toolbar class="ion-text-capitalize ion-text-center" color="primary">
-      <ion-row>
-        <ion-col size="6">
-          &copy; 2020 - {{ new Date().getFullYear() }}
-        </ion-col>
-        <ion-col size="6">
-          created by <b>{{ author }}</b>
-        </ion-col>
-      </ion-row>
-    </ion-toolbar>
-  </ion-footer>
 </template>
 
 <script>
@@ -86,9 +75,6 @@ import {
   IonTextarea,
   IonLabel,
   IonItem,
-  IonFooter,
-  IonRow,
-  IonCol,
   alertController,
 } from "@ionic/vue"
 import { defineComponent } from "vue"
@@ -110,9 +96,6 @@ export default defineComponent({
     IonTextarea,
     IonLabel,
     IonItem,
-    IonFooter,
-    IonRow,
-    IonCol,
   },
   data: () => ({
     // icons
@@ -121,12 +104,11 @@ export default defineComponent({
     // api
     whatsappAPI: "https://api.whatsapp.com/send?phone=",
     // data
-    author: "Mohssine Aboutaj",
     title: "Whatsapp unsaved contacts",
     label1: "Phone Number",
     label2: "Your Message",
-    msg: "",
     number: "",
+    msg: "",
   }),
   methods: {
     sendMessage() {
@@ -156,12 +138,5 @@ ion-card {
   max-width: 500px;
   margin: 50px auto;
   box-shadow: 2px 2px 10px;
-}
-
-ion-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
 }
 </style>

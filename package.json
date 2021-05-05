@@ -1,6 +1,6 @@
 {
   "name": "whatsapp-unsaved",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A very basic ionc/vue app that let you chating with any whatsapp user without save his/her phone number in your device",
   "author": "Mohssine Aboutaj",
   "scripts": {
