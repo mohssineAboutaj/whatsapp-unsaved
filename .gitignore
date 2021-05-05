@@ -31,3 +31,6 @@ package-lock.json
 /platforms
 /plugins
 /www
+
+# Local Netlify folder
+.netlify
