@@ -1,33 +1,49 @@
 # Whatsapp Unsaved
 
+- [Whatsapp Unsaved](#whatsapp-unsaved)
+  - [About](#about)
+  - [Demo](#demo)
+  - [Project setup](#project-setup)
+    - [Installation](#installation)
+    - [Development](#development)
+    - [Production](#production)
+    - [Lints and fixes](#lints-and-fixes)
+  - [LICENSE](#license)
+
 ## About
 
 A very basic [ionc/vue](https://ionicframework.com/docs/vue/overview) app that let you chating with any whatsapp user without save his/her phone number in your device
 
 ## Demo
 
-[Live Demo](https://whatsapp-unsaved.netlify.app/)
+- [Live Preview](https://whatsapp-unsaved.netlify.app/)
 
 ## Project setup
 
-```
+### Installation
+
+```sh
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Development
 
-```
+```sh
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Production
 
-```
+```sh
 yarn build
 ```
 
-### Lints and fixes files
+### Lints and fixes
 
-```
+```sh
 yarn lint
 ```
+
+## LICENSE
+
+[MIT](./LICENSE)

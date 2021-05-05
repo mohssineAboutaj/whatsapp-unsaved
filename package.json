@@ -1,14 +1,17 @@
 {
   "name": "whatsapp-unsaved",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A very basic ionc/vue app that let you chating with any whatsapp user without save his/her phone number in your device",
   "author": "Mohssine Aboutaj",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:android": "vue-cli-service build && cap copy",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@capacitor/android": "^2.4.7",
+    "@capacitor/cli": "^2.4.7",
     "@capacitor/core": "2.4.7",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",

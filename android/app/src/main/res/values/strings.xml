@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">whatsapp-unsaved</string>
+    <string name="title_activity_main">whatsapp-unsaved</string>
+    <string name="package_name">com.whatsapp.unsaved.app</string>
+    <string name="custom_url_scheme">com.whatsapp.unsaved.app</string>
+</resources>

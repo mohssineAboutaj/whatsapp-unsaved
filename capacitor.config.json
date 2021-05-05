@@ -1,0 +1,13 @@
+{
+  "appId": "com.whatsapp.unsaved.app",
+  "appName": "whatsapp-unsaved",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
