@@ -18,7 +18,7 @@
 
   <div class="ion-margin">
     <ion-card>
-      <ion-card-header class="ion-text-center">
+      <ion-card-header class="ion-text-center" v-if="false">
         <ion-card-title class="ion-margin-bottom">
           {{ title }}
         </ion-card-title>
@@ -27,31 +27,37 @@
           it as contact
         </ion-card-subtitle>
       </ion-card-header>
-      <ion-card-content>
-        <h4>NOTE:</h4>
+      <ion-card-header>
+        <h4><b>NOTE:</b></h4>
         <p class="ion-text-capitalize">
           phone number should include the international code (eg: +212545454)
         </p>
-      </ion-card-content>
+      </ion-card-header>
       <ion-card-content>
-        <ion-item>
-          <ion-label position="stacked">{{ label1 }} (require)</ion-label>
-          <ion-input
-            :placeholder="label1 + ` (eg: +212545454)`"
-            v-model="number"
-          ></ion-input>
+        <ion-item class="ion-margin-vertical">
+          <ion-icon :icon="callOutline"></ion-icon>
+          <ion-item>
+            <ion-label position="stacked">{{ label1 }} (require)</ion-label>
+            <ion-input
+              :placeholder="label1 + ` (eg: +212545454)`"
+              v-model="number"
+              inputmode="tel"
+              required
+              @ionInput="checkValidation()"
+            ></ion-input>
+          </ion-item>
         </ion-item>
-        <ion-item>
+        <ion-item class="ion-margin-vertical">
           <ion-label position="stacked">{{ label2 }} (optional)</ion-label>
           <ion-textarea
             :placeholder="label2"
             v-model="msg"
-            rows="3"
+            :auto-grow="true"
           ></ion-textarea>
         </ion-item>
       </ion-card-content>
       <ion-card-content class="ion-text-center">
-        <ion-button :disabled="!number" @click="sendMessage()">
+        <ion-button :disabled="!valid" @click="sendMessage()">
           send message
         </ion-button>
       </ion-card-content>
@@ -78,11 +84,12 @@ import {
   alertController,
 } from "@ionic/vue"
 import { defineComponent } from "vue"
-import { logoWhatsapp, helpCircle } from "ionicons/icons"
+import { logoWhatsapp, helpCircle, callOutline } from "ionicons/icons"
 
 export default defineComponent({
   components: {
     IonTitle,
+
     IonToolbar,
     IonIcon,
     IonButton,
@@ -101,24 +108,29 @@ export default defineComponent({
     // icons
     logoWhatsapp,
     helpCircle,
+    callOutline,
+
     // api
     whatsappAPI: "https://api.whatsapp.com/send?phone=",
     // data
-    title: "Whatsapp unsaved contacts",
+    title: "Whatsapp unsaved",
     label1: "Phone Number",
     label2: "Your Message",
     number: "",
     msg: "",
+    // validation
+    valid: false,
   }),
   methods: {
     sendMessage() {
-      if (this.number) {
-        let url = this.whatsappAPI + this.number
-        if (this.msg) {
-          url += "&text=" + this.msg
-        }
-        window.open(url)
+      let url = this.whatsappAPI + this.number
+      if (this.msg) {
+        url += "&text=" + this.msg
       }
+      window.open(url)
+    },
+    checkValidation() {
+      this.valid = this.number.match(/^\+(?:[0-9] ?){6,14}[0-9]$/)
     },
     async showInfo() {
       const alert = await alertController.create({
@@ -136,7 +148,6 @@ export default defineComponent({
 <style scoped>
 ion-card {
   max-width: 500px;
-  margin: 50px auto;
-  box-shadow: 2px 2px 10px;
+  margin: 10px auto;
 }
 </style>

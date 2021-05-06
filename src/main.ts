@@ -1,6 +1,7 @@
 import { createApp } from "vue"
 import App from "./App.vue"
 import { IonicVue } from "@ionic/vue"
+import "./registerServiceWorker"
 
 // Core CSS required for Ionic components to work properly
 import "@ionic/vue/css/core.css"
