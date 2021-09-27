@@ -43,7 +43,6 @@
               v-model="number"
               inputmode="tel"
               required
-              @ionInput="checkValidation()"
             ></ion-input>
           </ion-item>
         </ion-item>
@@ -57,7 +56,7 @@
         </ion-item>
       </ion-card-content>
       <ion-card-content class="ion-text-center">
-        <ion-button :disabled="!valid" @click="sendMessage()">
+        <ion-button @click="sendMessage()">
           send message
         </ion-button>
       </ion-card-content>
@@ -118,8 +117,6 @@ export default defineComponent({
     label2: "Your Message",
     number: "",
     msg: "",
-    // validation
-    valid: false,
   }),
   methods: {
     sendMessage() {
@@ -128,9 +125,6 @@ export default defineComponent({
         url += "&text=" + this.msg
       }
       window.open(url)
-    },
-    checkValidation() {
-      this.valid = this.number.match(/^\+(?:[0-9] ?){6,14}[0-9]$/)
     },
     async showInfo() {
       const alert = await alertController.create({
