@@ -56,9 +56,7 @@
         </ion-item>
       </ion-card-content>
       <ion-card-content class="ion-text-center">
-        <ion-button @click="sendMessage()">
-          send message
-        </ion-button>
+        <ion-button @click="sendMessage()"> send message </ion-button>
       </ion-card-content>
     </ion-card>
   </div>
@@ -84,11 +82,11 @@ import {
 } from "@ionic/vue"
 import { defineComponent } from "vue"
 import { logoWhatsapp, helpCircle, callOutline } from "ionicons/icons"
+import { Capacitor } from "@capacitor/core"
 
 export default defineComponent({
   components: {
     IonTitle,
-
     IonToolbar,
     IonIcon,
     IonButton,
@@ -110,7 +108,6 @@ export default defineComponent({
     callOutline,
 
     // api
-    whatsappAPI: "https://api.whatsapp.com/send?phone=",
     // data
     title: "Whatsapp unsaved",
     label1: "Phone Number",
@@ -119,8 +116,13 @@ export default defineComponent({
     msg: "",
   }),
   methods: {
+    getWhatsappAPIurl() {
+      const isWeb = Capacitor.getPlatform() === "web"
+
+      return `https://${isWeb ? "web" : "api"}.whatsapp.com/send?phone=`
+    },
     sendMessage() {
-      let url = this.whatsappAPI + this.number
+      let url = this.getWhatsappAPIurl() + this.number
       if (this.msg) {
         url += "&text=" + this.msg
       }
