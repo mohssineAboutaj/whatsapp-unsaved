@@ -1,3 +1,63 @@
+<script setup>
+import {
+  IonTitle,
+  IonToolbar,
+  IonIcon,
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  IonInput,
+  IonTextarea,
+  IonItem,
+  alertController,
+} from "@ionic/vue"
+import {
+  logoWhatsapp,
+  helpCircle,
+  callOutline,
+  chatboxOutline,
+} from "ionicons/icons"
+import { Capacitor } from "@capacitor/core"
+import { ref } from "vue"
+
+// data
+/// static
+const title = "Whatsapp unsaved"
+/// dynamic
+const number = ref("")
+const msg = ref("")
+
+// methods
+/// get whatsapp api url
+function getWhatsappAPIurl() {
+  const isWeb = Capacitor.getPlatform() === "web"
+
+  return `https://${isWeb ? "web" : "api"}.whatsapp.com/send?phone=`
+}
+/// send the message
+function sendMessage() {
+  let url = getWhatsappAPIurl() + number.value
+  if (msg.value) {
+    url += "&text=" + msg.value
+  }
+  window.open(url)
+}
+
+async function showInfo() {
+  const alert = await alertController.create({
+    header: "About App",
+    message:
+      "This app is a simple tool to send a message to a phone number in whatsapp without saving it as a contact",
+    buttons: ["Nice"],
+  })
+  await alert.present()
+}
+</script>
+
 <template>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
@@ -35,24 +95,33 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item class="ion-margin-vertical">
-          <ion-icon :icon="callOutline"></ion-icon>
-          <ion-item>
-            <ion-label position="stacked">{{ label1 }} (require)</ion-label>
-            <ion-input
-              :placeholder="label1 + ` (eg: +212545454)`"
-              v-model="number"
-              inputmode="tel"
-              required
-            ></ion-input>
-          </ion-item>
+          <ion-input
+            v-model="number"
+            label-placement="stacked"
+            required
+            label="Phone Number (required)"
+            placeholder="Phone Number"
+          >
+            <ion-icon
+              slot="start"
+              :icon="callOutline"
+              aria-hidden="true"
+            ></ion-icon>
+          </ion-input>
         </ion-item>
         <ion-item class="ion-margin-vertical">
-          <ion-label position="stacked">{{ label2 }} (optional)</ion-label>
           <ion-textarea
-            :placeholder="label2"
             v-model="msg"
-            :auto-grow="true"
-          ></ion-textarea>
+            label-placement="stacked"
+            label="Message (optional)"
+            placeholder="Message"
+          >
+            <ion-icon
+              slot="start"
+              :icon="chatboxOutline"
+              aria-hidden="true"
+            ></ion-icon>
+          </ion-textarea>
         </ion-item>
       </ion-card-content>
       <ion-card-content class="ion-text-center">
@@ -61,85 +130,6 @@
     </ion-card>
   </div>
 </template>
-
-<script>
-import {
-  IonTitle,
-  IonToolbar,
-  IonIcon,
-  IonButton,
-  IonButtons,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCardContent,
-  IonInput,
-  IonTextarea,
-  IonLabel,
-  IonItem,
-  alertController,
-} from "@ionic/vue"
-import { defineComponent } from "vue"
-import { logoWhatsapp, helpCircle, callOutline } from "ionicons/icons"
-import { Capacitor } from "@capacitor/core"
-
-export default defineComponent({
-  components: {
-    IonTitle,
-    IonToolbar,
-    IonIcon,
-    IonButton,
-    IonButtons,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCardContent,
-    IonInput,
-    IonTextarea,
-    IonLabel,
-    IonItem,
-  },
-  data: () => ({
-    // icons
-    logoWhatsapp,
-    helpCircle,
-    callOutline,
-
-    // api
-    // data
-    title: "Whatsapp unsaved",
-    label1: "Phone Number",
-    label2: "Your Message",
-    number: "",
-    msg: "",
-  }),
-  methods: {
-    getWhatsappAPIurl() {
-      const isWeb = Capacitor.getPlatform() === "web"
-
-      return `https://${isWeb ? "web" : "api"}.whatsapp.com/send?phone=`
-    },
-    sendMessage() {
-      let url = this.getWhatsappAPIurl() + this.number
-      if (this.msg) {
-        url += "&text=" + this.msg
-      }
-      window.open(url)
-    },
-    async showInfo() {
-      const alert = await alertController.create({
-        header: "About App",
-        message:
-          "A very basic ionc/vue app that let you chating with any whatsapp user without save his/her phone number in your device",
-        buttons: ["Nice"],
-      })
-      await alert.present()
-    },
-  },
-})
-</script>
 
 <style scoped>
 ion-card {
